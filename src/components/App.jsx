@@ -1,6 +1,8 @@
 import { Component } from "react";
 import { nanoid } from "nanoid";
 import ContactForm from "./ContactForm/ContactForm";
+import ContactList from "./ContactList/ContactList";
+import Filter from "./Filter/Filter";
 
 /**
  * @typedef {[]} NewType
@@ -130,8 +132,10 @@ class App extends Component {
         <ContactForm addItem={this.onAddItem} />
         <h1>Contacts</h1>
         <p>Find contacts by name</p>
-        <input type="text" name="find" onChange={this.handleChangeInput} />
-        <ul>
+        {/*<input type="text" name="find" onChange={this.handleChangeInput} />*/}
+        <Filter onChange={this.handleChangeInput} />
+        <ContactList  State={this.state}/>
+        {/*<ul>
           {this.state.contacts.filter((item) =>
             item.name.includes(this.state.filter)
           ).map((filteredName) => (
@@ -139,7 +143,7 @@ class App extends Component {
               {filteredName.name}: {filteredName.number}
             </li>
           ))}
-        </ul>
+        </ul>*/}
       </>
     );
   }
