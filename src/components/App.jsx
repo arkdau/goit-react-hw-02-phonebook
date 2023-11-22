@@ -1,5 +1,6 @@
 import { Component } from "react";
 import { nanoid } from "nanoid";
+import ContactForm from "./ContactForm/ContactForm";
 
 /**
  * @typedef {[]} NewType
@@ -30,35 +31,60 @@ class App extends Component {
     number: "",
   };
 
-  handleSubmit = (evt) => {
-    evt.preventDefault();
+// state = {
+//   contacts: [],
+//   filter: ''
+// }
 
-    const form = evt.currentTarget;
-    console.log("form: ", form);
-    const name = form.elements.name.value;
-    const number = form.elements.number.value;
+  // handleSubmit = (evt) => {
+  //   evt.preventDefault();
+  //
+  //   const form = evt.currentTarget;
+  //   console.log("form: ", form);
+  //   const name = form.elements.name.value;
+  //   const number = form.elements.number.value;
+  //
+  //   console.log("name: ", name);
+  //
+  //   this.setState({
+  //     name: name,
+  //     number: number,
+  //   });
+  //
+  //   this.onAddItem();
+  //
+  //   console.log("state.name: ", this.state.name);
+  //
+  //   form.reset();
+  // };
 
-    console.log("name: ", name);
+  // onAddItem = () => {
+  //   this.setState((state) => {
+  //     // const contacts = state.contacts.concat(state.name);
+  //     let contacts = [...this.state.contacts, {
+  //       name: this.state.name,
+  //       id: nanoid(),
+  //       number: this.state.number,
+  //     }];
+  //     console.log("add item-contacts:", contacts);
+  //     // contacts = [...state.contacts, nanoid()]
+  //
+  //     // contacts = state.contacts.concat(state.id);
+  //
+  //     return {
+  //       contacts,
+  //       name: "",
+  //     };
+  //   });
+  // };
 
-    this.setState({
-      name: name,
-      number: number,
-    });
-
-    this.onAddItem();
-
-    console.log("state.name: ", this.state.name);
-
-    form.reset();
-  };
-
-  onAddItem = () => {
+  onAddItem = (name, number) => {
     this.setState((state) => {
       // const contacts = state.contacts.concat(state.name);
-      let contacts = [...state.contacts, {
-        name: state.name,
+      let contacts = [...this.state.contacts, {
+        name: name,
         id: nanoid(),
-        number: state.number,
+        number: number,
       }];
       console.log("add item-contacts:", contacts);
       // contacts = [...state.contacts, nanoid()]
@@ -82,7 +108,7 @@ class App extends Component {
   render() {
     return (
       <>
-        <form onSubmit={this.handleSubmit}>
+        {/*<form onSubmit={this.handleSubmit}>
           <p>Name</p>
           <input
             type="text"
@@ -99,7 +125,9 @@ class App extends Component {
             required
           />
           <button type="submit">Add contact</button>
-        </form>
+        </form>*/}
+        <h1>Phonebook</h1>
+        <ContactForm addItem={this.onAddItem} />
         <h1>Contacts</h1>
         <p>Find contacts by name</p>
         <input type="text" name="find" onChange={this.handleChangeInput} />
