@@ -1,16 +1,19 @@
-// import { Component } from "react";
 
-const ContactList = ({ State }) => {
-  // console.log('List-state: ', Contacts);
+const ContactList = ({ State, removeItem }) => {
   return (
     <>
       <ul>
-        {console.log('Contacts: ', State)}
         {State.contacts.filter((item) => item.name.includes(State.filter)).map((
-          filteredName,
+          filteredName, index
         ) => (
           <li key={filteredName.id}>
             {filteredName.name}: {filteredName.number}
+            <button
+              type="button"
+              onClick={() => removeItem(index)}
+            >
+              Remove
+            </button>
           </li>
         ))}
       </ul>

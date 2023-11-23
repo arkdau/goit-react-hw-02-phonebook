@@ -1,5 +1,7 @@
 import { Component } from "react";
-// import { nanoid } from "nanoid";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import css from './Contacts.module.css';
 
 class ContactForm extends Component {
   state = {
@@ -7,51 +9,31 @@ class ContactForm extends Component {
     Number: "",
   };
 
-handleSubmit = (evt) => {
-  evt.preventDefault();
+  notify = (name) => toast.warning(`${name} is already in contacts !`);
 
-  const form = evt.currentTarget;
-  console.log("form: ", form);
-  const name = form.elements.name.value;
-  const number = form.elements.number.value;
+  handleSubmit = (evt) => {
+    evt.preventDefault();
 
-  console.log("name: ", name);
+    const form = evt.currentTarget;
+    const name = form.elements.name.value;
+    const number = form.elements.number.value;
 
-  this.setState({
-    name: name,
-    number: number,
-  });
+    this.setState({
+      name: name,
+      number: number,
+    });
 
-  this.props.addItem(name, number);
-  console.log('props: ', this.props);
+    if (this.props.addItem(name, number)) {
+      this.notify(name);
+    }
 
-  console.log("state.name: ", this.state.name);
-
-  form.reset();
-};
-
-
-// onAddItem = () => {
-//   this.props.state.setState((state) => {
-//     // const contacts = state.contacts.concat(state.name);
-//     let contacts = [...this.props.state.contacts, {
-//       name: state.name,
-//       id: nanoid(),
-//       number: state.number,
-//     }];
-//     console.log("add item-contacts:", contacts);
-//     return {
-//       contacts,
-//       name: "",
-//     };
-//   });
-// };
-
+    form.reset();
+  };
 
   render() {
     return (
       <>
-        <form onSubmit={this.handleSubmit}>
+        <form className={css.formBox} onSubmit={this.handleSubmit}>
           <p>Name</p>
           <input
             type="text"
@@ -69,9 +51,12 @@ handleSubmit = (evt) => {
           />
           <button type="submit">Add contact</button>
         </form>
+        <div>
+          <ToastContainer />
+        </div>
       </>
     );
   }
 }
 
-export default ContactForm
+export default ContactForm;
