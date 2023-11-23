@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 
 const ContactList = ({ State, removeItem }) => {
   return (
@@ -19,6 +20,21 @@ const ContactList = ({ State, removeItem }) => {
       </ul>
     </>
   );
+};
+
+
+
+ContactList.propTypes = {
+  State: PropTypes.shape({
+  contacts: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string,
+      name: PropTypes.string,
+      number: PropTypes.string,
+    }).isRequired,
+  ),
+  filter: PropTypes.string,
+  })
 };
 
 export default ContactList;
