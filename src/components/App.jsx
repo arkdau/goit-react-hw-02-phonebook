@@ -32,7 +32,7 @@ class App extends Component {
 
   onRemoveItem = (i) => {
     this.setState(() => {
-      const contacts = this.state.contacts.filter((item, j) => i !== item.id);
+      const contacts = this.state.contacts.filter((item) => i !== item.id);
 
       return {
         contacts,
