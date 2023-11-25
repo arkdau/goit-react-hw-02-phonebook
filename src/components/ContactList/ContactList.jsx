@@ -1,7 +1,6 @@
 import PropTypes from "prop-types";
 
 const ContactList = ({ contacts, removeItem }) => {
-  console.log("contacts: ", contacts);
   return (
     <>
       <ul>
