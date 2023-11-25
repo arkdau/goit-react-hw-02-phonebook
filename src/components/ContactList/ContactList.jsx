@@ -1,40 +1,39 @@
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 
-const ContactList = ({ State, removeItem }) => {
+const ContactList = ({ contacts, removeItem }) => {
+  console.log("contacts: ", contacts);
   return (
     <>
       <ul>
-        {State.contacts.filter((item) => item.name.includes(State.filter)).map((
-          filteredName, index
-        ) => (
-          <li key={filteredName.id}>
-            {filteredName.name}: {filteredName.number}
-            <button
-              type="button"
-              onClick={() => removeItem(index)}
-            >
-              Remove
-            </button>
-          </li>
-        ))}
+        {contacts.map((item) => {
+          return (
+            <li key={item.id}>
+              {item.name}: {item.number}
+              <button
+                type="button"
+                onClick={() => removeItem(item.id)}
+              >
+                Remove
+              </button>
+            </li>
+          );
+        })}
       </ul>
     </>
   );
 };
 
-
-
 ContactList.propTypes = {
-  State: PropTypes.shape({
-  contacts: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.string,
-      name: PropTypes.string,
-      number: PropTypes.string,
-    }).isRequired,
-  ),
-  filter: PropTypes.string,
-  })
+  state: PropTypes.shape({
+    contacts: PropTypes.arrayOf(
+      PropTypes.shape({
+        id: PropTypes.string,
+        name: PropTypes.string,
+        number: PropTypes.string,
+      }).isRequired,
+    ),
+    filter: PropTypes.string,
+  }),
 };
 
 export default ContactList;

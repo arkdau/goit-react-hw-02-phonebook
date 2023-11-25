@@ -30,15 +30,15 @@ class App extends Component {
     }
   };
 
-onRemoveItem = (i) => {
-  this.setState(() => {
-    const contacts = this.state.contacts.filter((item, j) => i !== j);
+  onRemoveItem = (i) => {
+    this.setState(() => {
+      const contacts = this.state.contacts.filter((item, j) => i !== item.id);
 
-    return {
-      contacts,
-    };
-  });
-};
+      return {
+        contacts,
+      };
+    });
+  };
 
   checkItem = (name) => {
     return this.state.contacts.filter((item) => item.name.includes(name));
@@ -50,6 +50,14 @@ onRemoveItem = (i) => {
     this.setState({ filter: filter });
   };
 
+  contactsFilter = () => {
+    return (
+      this.state.contacts.filter((item) =>
+        item.name.includes(this.state.filter)
+      )
+    );
+  };
+
   render() {
     return (
       <>
@@ -58,7 +66,11 @@ onRemoveItem = (i) => {
 
         <h2>Contacts</h2>
         <Filter onChange={this.handleChangeInput} />
-        <ContactList State={this.state} removeItem={this.onRemoveItem} />
+
+        <ContactList
+          contacts={this.contactsFilter()}
+          removeItem={this.onRemoveItem}
+        />
       </>
     );
   }
